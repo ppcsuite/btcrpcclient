@@ -10,7 +10,7 @@ import (
 	"errors"
 
 	"github.com/conformal/btcjson"
-	"github.com/conformal/btcutil"
+	"github.com/mably/btcutil"
 )
 
 // FutureGetGenerateResult is a future promise to deliver the result of a

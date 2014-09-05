@@ -10,8 +10,8 @@ import (
 	"encoding/json"
 
 	"github.com/conformal/btcjson"
-	"github.com/conformal/btcutil"
-	"github.com/conformal/btcwire"
+	"github.com/mably/btcutil"
+	"github.com/mably/btcwire"
 )
 
 // FutureGetBestBlockHashResult is a future promise to deliver the result of a

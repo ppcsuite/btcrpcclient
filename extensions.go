@@ -10,9 +10,9 @@ import (
 	"fmt"
 
 	"github.com/conformal/btcjson"
-	"github.com/conformal/btcutil"
-	"github.com/conformal/btcwire"
-	"github.com/conformal/btcws"
+	"github.com/mably/btcutil"
+	"github.com/mably/btcwire"
+	"github.com/mably/btcws"
 )
 
 // FutureDebugLevelResult is a future promise to deliver the result of a

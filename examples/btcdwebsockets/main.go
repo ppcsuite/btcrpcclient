@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/conformal/btcrpcclient"
-	"github.com/conformal/btcutil"
-	"github.com/conformal/btcwire"
+	"github.com/mably/btcrpcclient"
+	"github.com/mably/btcutil"
+	"github.com/mably/btcwire"
 )
 
 func main() {

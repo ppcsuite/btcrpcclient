@@ -7,7 +7,7 @@ package main
 import (
 	"log"
 
-	"github.com/conformal/btcrpcclient"
+	"github.com/mably/btcrpcclient"
 )
 
 func main() {

@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/conformal/btcjson"
-	"github.com/conformal/btcws"
+	"github.com/mably/btcws"
 	"github.com/conformal/go-socks"
 	"github.com/conformal/websocket"
 )
