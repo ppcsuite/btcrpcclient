@@ -24,7 +24,7 @@ implement and the API is not stable yet.
   Connects to a ppcd RPC server using TLS-secured websockets, registers for
   block connected and block disconnected notifications, and gets the current
   block count
-* [ppcwallet Websockets Example](https://github.com/mably/btcrpcclient/blob/master/examples/ppcwalletwebsockets)  
+* [ppcwallet Websockets Example](https://github.com/mably/btcrpcclient/blob/master/examples/btcwalletwebsockets)  
   Connects to a ppcwallet RPC server using TLS-secured websockets, registers for
   notifications about changes to account balances, and gets a list of unspent
   transaction outputs (utxos) the wallet can sign
