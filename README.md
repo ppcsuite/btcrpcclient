@@ -5,6 +5,7 @@ btcrpcclient
 (https://travis-ci.org/mably/btcrpcclient)
 [![GoDoc](https://godoc.org/github.com/mably/btcrpcclient?status.png)]
 (http://godoc.org/github.com/mably/btcrpcclient)
+[![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
 
 btcrpcclient implements a Websocket-enabled Bitcoin JSON-RPC client package
 written in [Go](http://golang.org/).  It provides a robust and easy to use
