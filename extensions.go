@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/conformal/btcjson"
+	"github.com/mably/btcjson"
 	"github.com/mably/btcutil"
 	"github.com/mably/btcwire"
 	"github.com/mably/btcws"

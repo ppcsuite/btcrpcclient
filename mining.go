@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/conformal/btcjson"
+	"github.com/mably/btcjson"
 	"github.com/mably/btcutil"
 )
 

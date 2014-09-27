@@ -20,7 +20,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/conformal/btcjson"
+	"github.com/mably/btcjson"
 	"github.com/mably/btcws"
 	"github.com/conformal/go-socks"
 	"github.com/conformal/websocket"

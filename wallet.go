@@ -7,7 +7,7 @@ package btcrpcclient
 import (
 	"encoding/json"
 
-	"github.com/conformal/btcjson"
+	"github.com/mably/btcjson"
 	"github.com/mably/btcnet"
 	"github.com/mably/btcutil"
 	"github.com/mably/btcwire"
