@@ -214,19 +214,19 @@ type FutureGetDifficultyResult chan *response
 
 // Receive waits for the response promised by the future and returns the
 // proof-of-work difficulty as a multiple of the minimum difficulty.
-func (r FutureGetDifficultyResult) Receive() (float64, error) {
+func (r FutureGetDifficultyResult) Receive() (*btcjson.GetDifficultyResult, error) {
 	res, err := receiveFuture(r)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
 	// Unmarshal the result as a float64.
-	var difficulty float64
+	var difficulty btcjson.GetDifficultyResult
 	err = json.Unmarshal(res, &difficulty)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
-	return difficulty, nil
+	return &difficulty, nil
 }
 
 // GetDifficultyAsync returns an instance of a type that can be used to get the
@@ -246,7 +246,7 @@ func (c *Client) GetDifficultyAsync() FutureGetDifficultyResult {
 
 // GetDifficulty returns the proof-of-work difficulty as a multiple of the
 // minimum difficulty.
-func (c *Client) GetDifficulty() (float64, error) {
+func (c *Client) GetDifficulty() (*btcjson.GetDifficultyResult, error) {
 	return c.GetDifficultyAsync().Receive()
 }
 
