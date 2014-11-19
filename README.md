@@ -1,7 +1,7 @@
 btcrpcclient
 ============
 
-[![Build Status](https://travis-ci.org/mably/btcrpcclient.png?branch=master)]
+[![Build Status](https://travis-ci.org/mably/btcrpcclient.png?branch=mably)]
 (https://travis-ci.org/mably/btcrpcclient)
 [![GoDoc](https://godoc.org/github.com/mably/btcrpcclient?status.png)]
 (http://godoc.org/github.com/mably/btcrpcclient)
