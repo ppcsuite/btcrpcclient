@@ -6,6 +6,7 @@ package btcrpcclient
 
 import (
 	"encoding/json"
+	"strconv"
 
 	"github.com/mably/btcjson"
 	"github.com/mably/btcwire"
@@ -23,9 +24,14 @@ func (r FutureKernelStakeModifierResult) Receive() (uint64, error) {
 		return 0, err
 	}
 
-	// Unmarshal the result as an uint64.
+	// Unmarshal the result as a string.
+	var kernelStakeModifierStr string
+	err = json.Unmarshal(res, &kernelStakeModifierStr)
+	if err != nil {
+		return 0, err
+	}
 	var kernelStakeModifier uint64
-	err = json.Unmarshal(res, &kernelStakeModifier)
+	kernelStakeModifier, err = strconv.ParseUint(kernelStakeModifierStr, 10, 64)
 	if err != nil {
 		return 0, err
 	}
@@ -121,13 +127,18 @@ func (r FutureNextRequiredTargetResult) Receive() (uint32, error) {
 		return 0, err
 	}
 
-	// Unmarshal the result as an uint32.
-	var nextRequiredTarget uint32
-	err = json.Unmarshal(res, &nextRequiredTarget)
+	// Unmarshal the result as a string.
+	var nextRequiredTargetStr string
+	err = json.Unmarshal(res, &nextRequiredTargetStr)
 	if err != nil {
 		return 0, err
 	}
-	return nextRequiredTarget, nil
+	var nextRequiredTarget uint64
+	nextRequiredTarget, err = strconv.ParseUint(nextRequiredTargetStr, 10, 32)
+	if err != nil {
+		return 0, err
+	}
+	return uint32(nextRequiredTarget), nil
 }
 
 // GetNextRequiredTargetAsync returns an instance of a type that can be used to get the
