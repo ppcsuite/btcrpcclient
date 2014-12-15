@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/mably/btcjson"
 	"github.com/mably/btcwire"
+	"github.com/mably/btcws"
 )
 
 // FutureKernelStakeModifierResult is a future promise to deliver the result of a
@@ -50,7 +50,7 @@ func (c *Client) GetKernelStakeModifierAsync(blockHash *btcwire.ShaHash) FutureK
 	}
 
 	id := c.NextID()
-	cmd, err := btcjson.NewGetKernelStakeModifierCmd(id, hash, false)
+	cmd, err := btcws.NewGetKernelStakeModifierCmd(id, hash, false)
 	if err != nil {
 		return newFutureError(err)
 	}
@@ -72,14 +72,14 @@ type FutureGetKernelStakeModifierVerboseResult chan *response
 
 // Receive waits for the response promised by the future and returns the data
 // structure from the server with information about the requested block.
-func (r FutureGetKernelStakeModifierVerboseResult) Receive() (*btcjson.KernelStakeModifierResult, error) {
+func (r FutureGetKernelStakeModifierVerboseResult) Receive() (*btcws.KernelStakeModifierResult, error) {
 	res, err := receiveFuture(r)
 	if err != nil {
 		return nil, err
 	}
 
 	// Unmarshal the raw result into a KernelStakeModifierResult.
-	var ksmResult btcjson.KernelStakeModifierResult
+	var ksmResult btcws.KernelStakeModifierResult
 	err = json.Unmarshal(res, &ksmResult)
 	if err != nil {
 		return nil, err
@@ -99,7 +99,7 @@ func (c *Client) GetKernelStakeModifierVerboseAsync(blockHash *btcwire.ShaHash) 
 	}
 
 	id := c.NextID()
-	cmd, err := btcjson.NewGetKernelStakeModifierCmd(id, hash, true)
+	cmd, err := btcws.NewGetKernelStakeModifierCmd(id, hash, true)
 	if err != nil {
 		return newFutureError(err)
 	}
@@ -111,7 +111,7 @@ func (c *Client) GetKernelStakeModifierVerboseAsync(blockHash *btcwire.ShaHash) 
 // about a block given its hash.
 //
 // See GetKernelStakeModifier to retrieve a raw block instead.
-func (c *Client) GetKernelStakeModifierVerbose(blockHash *btcwire.ShaHash) (*btcjson.KernelStakeModifierResult, error) {
+func (c *Client) GetKernelStakeModifierVerbose(blockHash *btcwire.ShaHash) (*btcws.KernelStakeModifierResult, error) {
 	return c.GetKernelStakeModifierVerboseAsync(blockHash).Receive()
 }
 
@@ -149,7 +149,7 @@ func (r FutureNextRequiredTargetResult) Receive() (uint32, error) {
 func (c *Client) GetNextRequiredTargetAsync(proofOfStake bool) FutureNextRequiredTargetResult {
 
 	id := c.NextID()
-	cmd, err := btcjson.NewGetNextRequiredTargetCmd(id, proofOfStake, false)
+	cmd, err := btcws.NewGetNextRequiredTargetCmd(id, proofOfStake, false)
 	if err != nil {
 		return newFutureError(err)
 	}
@@ -171,14 +171,14 @@ type FutureGetNextRequiredTargetVerboseResult chan *response
 
 // Receive waits for the response promised by the future and returns the data
 // structure from the server with information about the requested block.
-func (r FutureGetNextRequiredTargetVerboseResult) Receive() (*btcjson.NextRequiredTargetResult, error) {
+func (r FutureGetNextRequiredTargetVerboseResult) Receive() (*btcws.NextRequiredTargetResult, error) {
 	res, err := receiveFuture(r)
 	if err != nil {
 		return nil, err
 	}
 
 	// Unmarshal the raw result into a NextRequiredTargetResult.
-	var ksmResult btcjson.NextRequiredTargetResult
+	var ksmResult btcws.NextRequiredTargetResult
 	err = json.Unmarshal(res, &ksmResult)
 	if err != nil {
 		return nil, err
@@ -194,7 +194,7 @@ func (r FutureGetNextRequiredTargetVerboseResult) Receive() (*btcjson.NextRequir
 func (c *Client) GetNextRequiredTargetVerboseAsync(proofOfStake bool) FutureGetNextRequiredTargetVerboseResult {
 
 	id := c.NextID()
-	cmd, err := btcjson.NewGetNextRequiredTargetCmd(id, proofOfStake, true)
+	cmd, err := btcws.NewGetNextRequiredTargetCmd(id, proofOfStake, true)
 	if err != nil {
 		return newFutureError(err)
 	}
@@ -206,6 +206,6 @@ func (c *Client) GetNextRequiredTargetVerboseAsync(proofOfStake bool) FutureGetN
 // about a block given its hash.
 //
 // See GetNextRequiredTarget to retrieve a raw block instead.
-func (c *Client) GetNextRequiredTargetVerbose(proofOfStake bool) (*btcjson.NextRequiredTargetResult, error) {
+func (c *Client) GetNextRequiredTargetVerbose(proofOfStake bool) (*btcws.NextRequiredTargetResult, error) {
 	return c.GetNextRequiredTargetVerboseAsync(proofOfStake).Receive()
 }
