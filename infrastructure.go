@@ -22,8 +22,8 @@ import (
 
 	"github.com/mably/btcjson"
 	"github.com/mably/btcws"
-	"github.com/conformal/go-socks"
-	"github.com/conformal/websocket"
+	"github.com/btcsuite/go-socks/socks"
+	"github.com/btcsuite/websocket"
 )
 
 var (
