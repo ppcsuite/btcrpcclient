@@ -9,8 +9,8 @@ Overview
 
 This client provides a robust and easy to use client for interfacing with a
 Bitcoin RPC server that uses a btcd/bitcoin core compatible Bitcoin JSON-RPC
-API.  This client has been tested with btcd (https://github.com/mably/ppcd),
-btcwallet (https://github.com/mably/btcwallet), and
+API.  This client has been tested with btcd (https://github.com/ppcsuite/ppcd),
+btcwallet (https://github.com/ppcsuite/ppcwallet), and
 bitcoin core (https://github.com/bitcoin).
 
 In addition to the compatible standard HTTP POST JSON-RPC API, btcd and
@@ -120,14 +120,14 @@ Errors
 
 There are 3 categories of errors that will be returned throughout this package:
 
-  - Errors related to the client connection such as authentication, endpoint,
-    disconnect, and shutdown
-  - Errors that occur before communicating with the remote RPC server such as
-    command creation and marshaling errors or issues talking to the remote
-    server
-  - Errors returned from the remote RPC server like unimplemented commands,
-    nonexistent requested blocks and transactions, malformed data, and incorrect
-    networks
+- Errors related to the client connection such as authentication, endpoint,
+	disconnect, and shutdown
+- Errors that occur before communicating with the remote RPC server such as
+	command creation and marshaling errors or issues talking to the remote
+	server
+- Errors returned from the remote RPC server like unimplemented commands,
+	nonexistent requested blocks and transactions, malformed data, and incorrect
+	networks
 
 The first category of errors are typically one of ErrInvalidAuth,
 ErrInvalidEndpoint, ErrClientDisconnect, or ErrClientShutdown.
@@ -144,35 +144,35 @@ The third category of errors, that is errors returned by the server, can be
 detected by type asserting the error in a *btcjson.Error.  For example, to
 detect if a command is unimplemented by the remote RPC server:
 
-  amount, err := client.GetBalance("")
-  if err != nil {
-  	if jerr, ok := err.(*btcjson.Error); ok {
-  		switch jerr.Code {
+amount, err := client.GetBalance("")
+if err != nil {
+	if jerr, ok := err.(*btcjson.Error); ok {
+		switch jerr.Code {
 		case btcjson.ErrUnimplemented.Code:
-  			// Handle not implemented error
+			// Handle not implemented error
 
-  		// Handle other specific errors you care about
+		// Handle other specific errors you care about
 		}
-  	}
+	}
 
-  	// Log or otherwise handle the error knowing it was not one returned
-  	// from the remote RPC server.
-  }
+	// Log or otherwise handle the error knowing it was not one returned
+	// from the remote RPC server.
+}
 
 Example Usage
 
 The following full-blown client examples are in the examples directory:
 
- - bitcoincorehttp
-   Connects to a bitcoin core RPC server using HTTP POST mode with TLS disabled
-   and gets the current block count
- - btcdwebsockets
-   Connects to a btcd RPC server using TLS-secured websockets, registers for
-   block connected and block disconnected notifications, and gets the current
-   block count
- - btcwalletwebsockets
-   Connects to a btcwallet RPC server using TLS-secured websockets, registers
-   for notifications about changes to account balances, and gets a list of
-   unspent transaction outputs (utxos) the wallet can sign
+- bitcoincorehttp
+Connects to a bitcoin core RPC server using HTTP POST mode with TLS disabled
+and gets the current block count
+- btcdwebsockets
+Connects to a btcd RPC server using TLS-secured websockets, registers for
+block connected and block disconnected notifications, and gets the current
+block count
+- btcwalletwebsockets
+Connects to a btcwallet RPC server using TLS-secured websockets, registers
+for notifications about changes to account balances, and gets a list of
+unspent transaction outputs (utxos) the wallet can sign
 */
 package btcrpcclient
