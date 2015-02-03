@@ -9,10 +9,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/mably/btcjson"
-	"github.com/mably/btcutil"
-	"github.com/mably/btcwire"
-	"github.com/mably/btcws"
+	"github.com/ppcsuite/btcjson"
+	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/btcws"
 )
 
 // FutureDebugLevelResult is a future promise to deliver the result of a

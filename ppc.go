@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/mably/btcwire"
-	"github.com/mably/btcws"
+	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/btcws"
 )
 
 // FutureKernelStakeModifierResult is a future promise to deliver the result of a

@@ -8,11 +8,11 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/mably/btcjson"
-	"github.com/mably/btcnet"
-	"github.com/mably/btcutil"
-	"github.com/mably/btcwire"
-	"github.com/mably/btcws"
+	"github.com/ppcsuite/btcjson"
+	"github.com/ppcsuite/btcnet"
+	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/btcws"
 )
 
 // *****************************

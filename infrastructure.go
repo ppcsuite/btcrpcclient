@@ -20,8 +20,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/mably/btcjson"
-	"github.com/mably/btcws"
+	"github.com/ppcsuite/btcjson"
+	"github.com/ppcsuite/btcws"
 	"github.com/btcsuite/go-socks/socks"
 	"github.com/btcsuite/websocket"
 )

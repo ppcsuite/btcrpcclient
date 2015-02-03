@@ -9,8 +9,8 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/mably/btcjson"
-	"github.com/mably/btcutil"
+	"github.com/ppcsuite/btcjson"
+	"github.com/ppcsuite/btcutil"
 )
 
 // FutureGetGenerateResult is a future promise to deliver the result of a

@@ -1,10 +1,10 @@
 btcrpcclient
 ============
 
-[![Build Status](https://travis-ci.org/mably/btcrpcclient.png?branch=master)]
-(https://travis-ci.org/mably/btcrpcclient)
-[![GoDoc](https://godoc.org/github.com/mably/btcrpcclient?status.png)]
-(http://godoc.org/github.com/mably/btcrpcclient)
+[![Build Status](https://travis-ci.org/ppcsuite/btcrpcclient.png?branch=master)]
+(https://travis-ci.org/ppcsuite/btcrpcclient)
+[![GoDoc](https://godoc.org/github.com/ppcsuite/btcrpcclient?status.png)]
+(http://godoc.org/github.com/ppcsuite/btcrpcclient)
 [![tip for next commit](http://peer4commit.com/projects/130.svg)](http://peer4commit.com/projects/130)
 
 btcrpcclient implements a Websocket-enabled Bitcoin JSON-RPC client package
@@ -20,16 +20,16 @@ implement and the API is not stable yet.
 
 ## Documentation
 
-* [API Reference](http://godoc.org/github.com/mably/btcrpcclient)
-* [ppcd Websockets Example](https://github.com/mably/btcrpcclient/blob/master/examples/btcdwebsockets)  
+* [API Reference](http://godoc.org/github.com/ppcsuite/btcrpcclient)
+* [ppcd Websockets Example](https://github.com/ppcsuite/btcrpcclient/blob/master/examples/btcdwebsockets)  
   Connects to a ppcd RPC server using TLS-secured websockets, registers for
   block connected and block disconnected notifications, and gets the current
   block count
-* [ppcwallet Websockets Example](https://github.com/mably/btcrpcclient/blob/master/examples/btcwalletwebsockets)  
+* [ppcwallet Websockets Example](https://github.com/ppcsuite/btcrpcclient/blob/master/examples/btcwalletwebsockets)  
   Connects to a ppcwallet RPC server using TLS-secured websockets, registers for
   notifications about changes to account balances, and gets a list of unspent
   transaction outputs (utxos) the wallet can sign
-* [Bitcoin Core HTTP POST Example](https://github.com/mably/btcrpcclient/blob/master/examples/bitcoincorehttp)  
+* [Bitcoin Core HTTP POST Example](https://github.com/ppcsuite/btcrpcclient/blob/master/examples/bitcoincorehttp)  
   Connects to a bitcoin core RPC server using HTTP POST mode with TLS disabled
   and gets the current block count
 
@@ -49,7 +49,7 @@ implement and the API is not stable yet.
 ## Installation
 
 ```bash
-$ go get github.com/mably/btcrpcclient
+$ go get github.com/ppcsuite/btcrpcclient
 ```
 
 ## License

@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/mably/btcjson"
+	"github.com/ppcsuite/btcjson"
 )
 
 // rawRequest satisifies the btcjson.Cmd interface for btcjson raw commands.
