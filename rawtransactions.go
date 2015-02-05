@@ -11,7 +11,7 @@ import (
 
 	"github.com/ppcsuite/btcjson"
 	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/btcwire"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // SigHashType enumerates the available signature hashing types that the
