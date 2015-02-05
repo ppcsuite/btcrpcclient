@@ -12,7 +12,8 @@ import (
 	"github.com/ppcsuite/btcjson"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcws"
-	"github.com/ppcsuite/ppcd/wire")
+	"github.com/ppcsuite/ppcd/wire"
+)
 
 // FutureDebugLevelResult is a future promise to deliver the result of a
 // DebugLevelAsync RPC invocation (or an applicable error).

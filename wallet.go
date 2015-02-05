@@ -12,7 +12,8 @@ import (
 	"github.com/ppcsuite/btcnet"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcws"
-	"github.com/ppcsuite/ppcd/wire")
+	"github.com/ppcsuite/ppcd/wire"
+)
 
 // *****************************
 // Transaction Listing Functions
@@ -1604,6 +1605,7 @@ func (r FutureGetBalanceResult) Receive() (btcutil.Amount, error) {
 // returned instance.
 //
 type FutureGetBalanceParseResult chan *response
+
 // See GetBalance for the blocking version and more details.
 // Receive waits for the response promised by the future and returns the
 // available balance from the server for the specified account.
@@ -2000,6 +2002,7 @@ func (c *Client) ListReceivedByAccountIncludeEmpty(minConfirms int, includeEmpty
 // ************************
 
 type FutureListReceivedByAddressResult chan *response
+
 // FutureWalletLockResult is a future promise to deliver the result of a
 // WalletLockAsync RPC invocation (or an applicable error).
 // balances by address.

@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/ppcsuite/ppcd/wire"
 	"github.com/ppcsuite/btcws"
+	"github.com/ppcsuite/ppcd/wire"
 )
 
 // FutureKernelStakeModifierResult is a future promise to deliver the result of a
@@ -43,7 +43,7 @@ func (r FutureKernelStakeModifierResult) Receive() (uint64, error) {
 // returned instance.
 //
 // See GetKernelStakeModifier for the blocking version and more details.
-func (c *Client) GetKernelStakeModifierAsync(blockHash *btcwire.ShaHash) FutureKernelStakeModifierResult {
+func (c *Client) GetKernelStakeModifierAsync(blockHash *wire.ShaHash) FutureKernelStakeModifierResult {
 	hash := ""
 	if blockHash != nil {
 		hash = blockHash.String()
@@ -62,7 +62,7 @@ func (c *Client) GetKernelStakeModifierAsync(blockHash *btcwire.ShaHash) FutureK
 //
 // See GetKernelStakeModifierVerbose to retrieve a data structure with information about the
 // block instead.
-func (c *Client) GetKernelStakeModifier(blockHash *btcwire.ShaHash) (uint64, error) {
+func (c *Client) GetKernelStakeModifier(blockHash *wire.ShaHash) (uint64, error) {
 	return c.GetKernelStakeModifierAsync(blockHash).Receive()
 }
 
@@ -92,7 +92,7 @@ func (r FutureGetKernelStakeModifierVerboseResult) Receive() (*btcws.KernelStake
 // the returned instance.
 //
 // See GetKernelStakeModifierVerbose for the blocking version and more details.
-func (c *Client) GetKernelStakeModifierVerboseAsync(blockHash *btcwire.ShaHash) FutureGetKernelStakeModifierVerboseResult {
+func (c *Client) GetKernelStakeModifierVerboseAsync(blockHash *wire.ShaHash) FutureGetKernelStakeModifierVerboseResult {
 	hash := ""
 	if blockHash != nil {
 		hash = blockHash.String()
@@ -111,7 +111,7 @@ func (c *Client) GetKernelStakeModifierVerboseAsync(blockHash *btcwire.ShaHash) 
 // about a block given its hash.
 //
 // See GetKernelStakeModifier to retrieve a raw block instead.
-func (c *Client) GetKernelStakeModifierVerbose(blockHash *btcwire.ShaHash) (*btcws.KernelStakeModifierResult, error) {
+func (c *Client) GetKernelStakeModifierVerbose(blockHash *wire.ShaHash) (*btcws.KernelStakeModifierResult, error) {
 	return c.GetKernelStakeModifierVerboseAsync(blockHash).Receive()
 }
 

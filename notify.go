@@ -16,7 +16,8 @@ import (
 	"github.com/ppcsuite/btcjson"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcws"
-	"github.com/ppcsuite/ppcd/wire")
+	"github.com/ppcsuite/ppcd/wire"
+)
 
 var (
 	// ErrNotificationsNotSupported is an error to describe the condition
