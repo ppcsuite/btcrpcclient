@@ -9,9 +9,9 @@ import (
 	"strconv"
 
 	"github.com/ppcsuite/btcjson"
-	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/btcutil"
 	"github.com/ppcsuite/btcws"
+	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
@@ -1221,7 +1221,8 @@ func (r FutureGetAddressesByAccountResult) Receive() ([]btcutil.Address, error) 
 
 	addrs := make([]btcutil.Address, 0, len(addrStrings))
 	for _, addrStr := range addrStrings {
-		addr, err := btcutil.DecodeAddress(addrStr, &chaincfg.MainNetParams)
+		addr, err := btcutil.DecodeAddress(addrStr,
+			&chaincfg.MainNetParams)
 		if err != nil {
 			return nil, err
 		}
