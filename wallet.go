@@ -8,9 +8,9 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/ppcsuite/btcjson"
 	"github.com/ppcsuite/btcutil"
-	"github.com/ppcsuite/btcws"
+	"github.com/ppcsuite/ppcd/btcjson"
+	"github.com/ppcsuite/ppcd/btcjson/btcws"
 	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/wire"
 )

@@ -9,8 +9,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 
-	"github.com/ppcsuite/btcjson"
 	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/ppcd/btcjson"
 	"github.com/ppcsuite/ppcd/wire"
 )
 
