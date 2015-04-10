@@ -140,10 +140,10 @@ func (r FutureNextRequiredTargetResult) Receive() (uint32, error) {
 // returned instance.
 //
 // See GetNextRequiredTarget for the blocking version and more details.
-func (c *Client) GetNextRequiredTargetAsync(proofOfStake *bool) FutureNextRequiredTargetResult {
+func (c *Client) GetNextRequiredTargetAsync(proofOfStake bool) FutureNextRequiredTargetResult {
 
 	verbose := false
-	cmd := btcjson.NewGetNextRequiredTargetCmd(proofOfStake, &verbose)
+	cmd := btcjson.NewGetNextRequiredTargetCmd(&proofOfStake, &verbose)
 
 	return c.sendCmd(cmd)
 }
@@ -152,7 +152,7 @@ func (c *Client) GetNextRequiredTargetAsync(proofOfStake *bool) FutureNextRequir
 //
 // See GetNextRequiredTargetVerbose to retrieve a data structure with information about the
 // block instead.
-func (c *Client) GetNextRequiredTarget(proofOfStake *bool) (uint32, error) {
+func (c *Client) GetNextRequiredTarget(proofOfStake bool) (uint32, error) {
 	return c.GetNextRequiredTargetAsync(proofOfStake).Receive()
 }
 
@@ -169,12 +169,12 @@ func (r FutureGetNextRequiredTargetVerboseResult) Receive() (*btcjson.NextRequir
 	}
 
 	// Unmarshal the raw result into a NextRequiredTargetResult.
-	var ksmResult btcjson.NextRequiredTargetResult
-	err = json.Unmarshal(res, &ksmResult)
+	var nrtResult btcjson.NextRequiredTargetResult
+	err = json.Unmarshal(res, &nrtResult)
 	if err != nil {
 		return nil, err
 	}
-	return &ksmResult, nil
+	return &nrtResult, nil
 }
 
 // GetNextRequiredTargetVerboseAsync returns an instance of a type that can be used to get
@@ -182,18 +182,17 @@ func (r FutureGetNextRequiredTargetVerboseResult) Receive() (*btcjson.NextRequir
 // the returned instance.
 //
 // See GetNextRequiredTargetVerbose for the blocking version and more details.
-func (c *Client) GetNextRequiredTargetVerboseAsync(proofOfStake *bool) FutureGetNextRequiredTargetVerboseResult {
+func (c *Client) GetNextRequiredTargetVerboseAsync(proofOfStake bool) FutureGetNextRequiredTargetVerboseResult {
 
 	verbose := true
-	cmd := btcjson.NewGetNextRequiredTargetCmd(proofOfStake, &verbose)
+	cmd := btcjson.NewGetNextRequiredTargetCmd(&proofOfStake, &verbose)
 
 	return c.sendCmd(cmd)
 }
 
-// GetNextRequiredTargetVerbose returns a data structure from the server with information
-// about a block given its hash.
+// GetNextRequiredTargetVerbose returns... TODO(mably)
 //
 // See GetNextRequiredTarget to retrieve a raw block instead.
-func (c *Client) GetNextRequiredTargetVerbose(proofOfStake *bool) (*btcjson.NextRequiredTargetResult, error) {
+func (c *Client) GetNextRequiredTargetVerbose(proofOfStake bool) (*btcjson.NextRequiredTargetResult, error) {
 	return c.GetNextRequiredTargetVerboseAsync(proofOfStake).Receive()
 }
