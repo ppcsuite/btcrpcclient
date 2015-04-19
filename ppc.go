@@ -196,3 +196,42 @@ func (c *Client) GetNextRequiredTargetVerboseAsync(proofOfStake bool) FutureGetN
 func (c *Client) GetNextRequiredTargetVerbose(proofOfStake bool) (*btcjson.NextRequiredTargetResult, error) {
 	return c.GetNextRequiredTargetVerboseAsync(proofOfStake).Receive()
 }
+
+// FutureLastProofOfWorkRewardResult is a future promise to deliver the result of a
+// GetNextRequiredTargetAsync RPC invocation (or an applicable error).
+type FutureLastProofOfWorkRewardResult chan *response
+
+// Receive waits for the response promised by the future and returns the raw
+// block requested from the server given its hash.
+func (r FutureLastProofOfWorkRewardResult) Receive() (int64, error) {
+	res, err := receiveFuture(r)
+	if err != nil {
+		return 0, err
+	}
+
+	// Unmarshal the raw result into a LastProofOfWorkRewardResult.
+	var lpowrResult btcjson.LastProofOfWorkRewardResult
+	err = json.Unmarshal(res, &lpowrResult)
+	if err != nil {
+		return 0, err
+	}
+
+	return int64(lpowrResult.Subsidy), nil
+}
+
+// GetLastProofOfWorkRewardAsync returns an instance of a type that can be used to get the
+// result of the RPC at some future time by invoking the Receive function on the
+// returned instance.
+//
+// See GetLastProofOfWorkReward for the blocking version and more details.
+func (c *Client) GetLastProofOfWorkRewardAsync() FutureLastProofOfWorkRewardResult {
+
+	cmd := btcjson.NewGetLastProofOfWorkRewardCmd()
+
+	return c.sendCmd(cmd)
+}
+
+// GetLastProofOfWorkReward returns a raw block from the server given its hash.
+func (c *Client) GetLastProofOfWorkReward() (int64, error) {
+	return c.GetLastProofOfWorkRewardAsync().Receive()
+}
