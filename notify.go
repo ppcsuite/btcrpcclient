@@ -525,9 +525,15 @@ func parseTxAcceptedNtfnParams(params []json.RawMessage) (*wire.ShaHash,
 		return nil, 0, err
 	}
 
-	// Unmarshal second parameter as an integer.
-	var amt int64
-	err = json.Unmarshal(params[1], &amt)
+	// Unmarshal second parameter as a floating point number.
+	var famt float64
+	err = json.Unmarshal(params[1], &famt)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	// Bounds check amount.
+	amt, err := btcutil.NewAmount(famt)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -728,6 +734,15 @@ func (c *Client) notifySpentInternal(outpoints []btcjson.OutPoint) FutureNotifyS
 	return c.sendCmd(cmd)
 }
 
+// newOutPointFromWire constructs the btcjson representation of a transaction
+// outpoint from the wire type.
+func newOutPointFromWire(op *wire.OutPoint) btcjson.OutPoint {
+	return btcjson.OutPoint{
+		Hash:  op.Hash.String(),
+		Index: op.Index,
+	}
+}
+
 // NotifySpentAsync returns an instance of a type that can be used to get the
 // result of the RPC at some future time by invoking the Receive function on
 // the returned instance.
@@ -749,7 +764,7 @@ func (c *Client) NotifySpentAsync(outpoints []*wire.OutPoint) FutureNotifySpentR
 
 	ops := make([]btcjson.OutPoint, 0, len(outpoints))
 	for _, outpoint := range outpoints {
-		ops = append(ops, *btcjson.NewOutPointFromWire(outpoint))
+		ops = append(ops, newOutPointFromWire(outpoint))
 	}
 	cmd := btcjson.NewNotifySpentCmd(ops)
 	return c.sendCmd(cmd)
@@ -964,7 +979,7 @@ func (c *Client) RescanAsync(startBlock *wire.ShaHash,
 	// Convert outpoints.
 	ops := make([]btcjson.OutPoint, 0, len(outpoints))
 	for _, op := range outpoints {
-		ops = append(ops, *btcjson.NewOutPointFromWire(op))
+		ops = append(ops, newOutPointFromWire(op))
 	}
 
 	cmd := btcjson.NewRescanCmd(startBlockShaStr, addrs, ops, nil)
@@ -1044,7 +1059,7 @@ func (c *Client) RescanEndBlockAsync(startBlock *wire.ShaHash,
 	// Convert outpoints.
 	ops := make([]btcjson.OutPoint, 0, len(outpoints))
 	for _, op := range outpoints {
-		ops = append(ops, *btcjson.NewOutPointFromWire(op))
+		ops = append(ops, newOutPointFromWire(op))
 	}
 
 	cmd := btcjson.NewRescanCmd(startBlockShaStr, addrs, ops,
