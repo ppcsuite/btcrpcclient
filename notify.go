@@ -470,7 +470,10 @@ func parseChainTxNtfnParams(params []json.RawMessage) (*btcutil.Tx,
 	// nicer types for details about the block (block sha as a
 	// wire.ShaHash, block time as a time.Time, etc.).
 	tx := btcutil.NewTx(&msgTx)
-	tx.SetOffset(block.Offset) // ppc:
+	if block != nil {
+		tx.SetIndex(block.Index)
+		tx.SetOffset(block.Offset) // ppc:
+	}
 	return tx, block, nil
 }
 
