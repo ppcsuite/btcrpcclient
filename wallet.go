@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Conformal Systems LLC.
+// Copyright (c) 2014-2015 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -8,9 +8,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/ppcsuite/ppcd/btcjson/v2/btcjson"
-
 	"github.com/ppcsuite/btcutil"
+	"github.com/ppcsuite/ppcd/btcjson"
 	"github.com/ppcsuite/ppcd/chaincfg"
 	"github.com/ppcsuite/ppcd/wire"
 )
@@ -901,14 +900,14 @@ func (r FutureGetNewAddressResult) Receive() (btcutil.Address, error) {
 // returned instance.
 //
 // See GetNewAddress for the blocking version and more details.
-func (c *Client) GetNewAddressAsync() FutureGetNewAddressResult {
-	cmd := btcjson.NewGetNewAddressCmd(nil)
+func (c *Client) GetNewAddressAsync(account string) FutureGetNewAddressResult {
+	cmd := btcjson.NewGetNewAddressCmd(&account)
 	return c.sendCmd(cmd)
 }
 
 // GetNewAddress returns a new address.
-func (c *Client) GetNewAddress() (btcutil.Address, error) {
-	return c.GetNewAddressAsync().Receive()
+func (c *Client) GetNewAddress(account string) (btcutil.Address, error) {
+	return c.GetNewAddressAsync(account).Receive()
 }
 
 // FutureGetRawChangeAddressResult is a future promise to deliver the result of
