@@ -5,6 +5,8 @@
 package btcrpcclient
 
 import (
+	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"strconv"
 
@@ -234,4 +236,53 @@ func (c *Client) GetLastProofOfWorkRewardAsync() FutureLastProofOfWorkRewardResu
 // GetLastProofOfWorkReward returns a raw block from the server given its hash.
 func (c *Client) GetLastProofOfWorkReward() (int64, error) {
 	return c.GetLastProofOfWorkRewardAsync().Receive()
+}
+
+// FutureSendCoinStakeTransactionResult is a future promise to deliver the result
+// of a SendCoinStakeTransactionAsync RPC invocation (or an applicable error).
+type FutureSendCoinStakeTransactionResult chan *response
+
+// Receive waits for the response promised by the future and returns the result
+// of submitting the encoded transaction to the server which then relays it to
+// the network.
+func (r FutureSendCoinStakeTransactionResult) Receive() (*wire.ShaHash, error) {
+	res, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+
+	// Unmarshal result as a string.
+	var txHashStr string
+	err = json.Unmarshal(res, &txHashStr)
+	if err != nil {
+		return nil, err
+	}
+
+	return wire.NewShaHashFromStr(txHashStr)
+}
+
+// SendCoinStakeTransactionAsync returns an instance of a type that can be used to get
+// the result of the RPC at some future time by invoking the Receive function on
+// the returned instance.
+//
+// See SendCoinStakeTransaction for the blocking version and more details.
+func (c *Client) SendCoinStakeTransactionAsync(tx *wire.MsgTx) FutureSendCoinStakeTransactionResult {
+	txHex := ""
+	if tx != nil {
+		// Serialize the transaction and convert to hex string.
+		buf := bytes.NewBuffer(make([]byte, 0, tx.SerializeSize()))
+		if err := tx.Serialize(buf); err != nil {
+			return newFutureError(err)
+		}
+		txHex = hex.EncodeToString(buf.Bytes())
+	}
+
+	cmd := btcjson.NewSendCoinStakeTransactionCmd(txHex)
+	return c.sendCmd(cmd)
+}
+
+// SendCoinStakeTransaction submits the encoded transaction to the server which will
+// then relay it to the network.
+func (c *Client) SendCoinStakeTransaction(tx *wire.MsgTx) (*wire.ShaHash, error) {
+	return c.SendCoinStakeTransactionAsync(tx).Receive()
 }
