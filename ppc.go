@@ -245,20 +245,19 @@ type FutureSendCoinStakeTransactionResult chan *response
 // Receive waits for the response promised by the future and returns the result
 // of submitting the encoded transaction to the server which then relays it to
 // the network.
-func (r FutureSendCoinStakeTransactionResult) Receive() (*wire.ShaHash, error) {
+func (r FutureSendCoinStakeTransactionResult) Receive() (*btcjson.SendCoinStakeTransactionResult, error) {
 	res, err := receiveFuture(r)
 	if err != nil {
 		return nil, err
 	}
 
-	// Unmarshal result as a string.
-	var txHashStr string
-	err = json.Unmarshal(res, &txHashStr)
+	// Unmarshal the raw result into a SendCoinStakeTransactionResult.
+	var scstResult btcjson.SendCoinStakeTransactionResult
+	err = json.Unmarshal(res, &scstResult)
 	if err != nil {
 		return nil, err
 	}
-
-	return wire.NewShaHashFromStr(txHashStr)
+	return &scstResult, nil
 }
 
 // SendCoinStakeTransactionAsync returns an instance of a type that can be used to get
@@ -283,6 +282,46 @@ func (c *Client) SendCoinStakeTransactionAsync(tx *wire.MsgTx) FutureSendCoinSta
 
 // SendCoinStakeTransaction submits the encoded transaction to the server which will
 // then relay it to the network.
-func (c *Client) SendCoinStakeTransaction(tx *wire.MsgTx) (*wire.ShaHash, error) {
+func (c *Client) SendCoinStakeTransaction(tx *wire.MsgTx) (*btcjson.SendCoinStakeTransactionResult, error) {
 	return c.SendCoinStakeTransactionAsync(tx).Receive()
+}
+
+// FutureSendMintBlockSignatureResult is a future promise to deliver the result
+// of a SendMintBlockSignatureAsync RPC invocation (or an applicable error).
+type FutureSendMintBlockSignatureResult chan *response
+
+// Receive waits for the response promised by the future and returns the result
+// of submitting the encoded transaction to the server which then relays it to
+// the network.
+func (r FutureSendMintBlockSignatureResult) Receive() (*btcjson.SendMintBlockSignatureResult, error) {
+	res, err := receiveFuture(r)
+	if err != nil {
+		return nil, err
+	}
+
+	// Unmarshal the raw result into a SendMintBlockSignatureResult.
+	var scstResult btcjson.SendMintBlockSignatureResult
+	err = json.Unmarshal(res, &scstResult)
+	if err != nil {
+		return nil, err
+	}
+	return &scstResult, nil
+}
+
+// SendMintBlockSignatureAsync returns an instance of a type that can be used to get
+// the result of the RPC at some future time by invoking the Receive function on
+// the returned instance.
+//
+// See SendMintBlockSignature for the blocking version and more details.
+func (c *Client) SendMintBlockSignatureAsync(txSha *wire.ShaHash, signature *[]byte) FutureSendMintBlockSignatureResult {
+	txShaHex := txSha.String()
+	signatureHex := hex.EncodeToString(*signature)
+	cmd := btcjson.NewSendMintBlockSignatureCmd(txShaHex, signatureHex)
+	return c.sendCmd(cmd)
+}
+
+// SendMintBlockSignature submits the encoded transaction to the server which will
+// then relay it to the network.
+func (c *Client) SendMintBlockSignature(txSha *wire.ShaHash, signature *[]byte) (*btcjson.SendMintBlockSignatureResult, error) {
+	return c.SendMintBlockSignatureAsync(txSha, signature).Receive()
 }
